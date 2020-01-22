@@ -10,7 +10,7 @@ public abstract class DummyNeighbourGenerator {
 
     public static List<Neighbour> DUMMY_NEIGHBOURS = Arrays.asList(
             new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d",false, "Paris","0152334421","www.facebook.fr/Caroline"),
-            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e",true, "Paris","0185653252","www.facebook.fr/Jack"),
+            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e",false, "Paris","0185653252","www.facebook.fr/Jack"),
             new Neighbour(3, "Chloé", "http://i.pravatar.cc/150?u=a042581f4e29026704f",false, "Paris","0139654721","www.facebook.fr/Chloé"),
             new Neighbour(4, "Vincent", "http://i.pravatar.cc/150?u=a042581f4e29026704a",false, "paris","0178963251","www.facebook.fr/Vincent"),
             new Neighbour(5, "Elodie", "http://i.pravatar.cc/150?u=a042581f4e29026704b",false, "Paris","012582323201","www.facebook.fr/Elodie"),

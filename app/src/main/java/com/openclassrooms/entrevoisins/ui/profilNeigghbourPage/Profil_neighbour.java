@@ -21,9 +21,9 @@ import butterknife.ButterKnife;
 public class Profil_neighbour extends AppCompatActivity {
 
     @BindView(R.id.Avatar)
-    public ImageView mNeighbourAvatar;
+    public ImageView mProfilNeighbourAvatar;
     @BindView(R.id.Name)
-    public TextView mNeighbourName;
+    public TextView mProfilNeighbourName;
     @BindView(R.id.BackMainActivityButton)
     public ImageButton mBackToMainActivity;
     @BindView(R.id.Name2)
@@ -65,12 +65,13 @@ public class Profil_neighbour extends AppCompatActivity {
                 if (mNeighbour.isFavorites()== false) {
                     mApiService.addFavoritesOrRemove(mNeighbour);
                     mFavStar.setImageResource(R.drawable.ic_star_white_24dp);
-                }else{
+                }else if (mNeighbour.isFavorites()== true){
                     mApiService.addFavoritesOrRemove(mNeighbour);
                     mFavStar.setImageResource(R.drawable.ic_star_border_white_24dp);
                 }
             }
         });
+
         mBackToMainActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +83,8 @@ public class Profil_neighbour extends AppCompatActivity {
 
 
     private void setLayoutDrawable(){
-        Glide.with(this).load(mNeighbour.getAvatarUrl()).into(mNeighbourAvatar);
-        mNeighbourName.setText(mNeighbour.getName());
+        Glide.with(this).load(mNeighbour.getAvatarUrl()).into(mProfilNeighbourAvatar);
+        mProfilNeighbourName.setText(mNeighbour.getName());
         mNeighbourName2.setText(mNeighbour.getName());
         mLocation.setText(mNeighbour.getUserLocation());
         mPhoneNumber.setText(mNeighbour.getPhoneNumber());
