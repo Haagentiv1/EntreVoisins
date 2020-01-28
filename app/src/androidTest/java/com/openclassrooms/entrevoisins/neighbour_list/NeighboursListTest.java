@@ -15,10 +15,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
@@ -34,6 +36,8 @@ public class NeighboursListTest {
 
     // This is fixed
     private static int ITEMS_COUNT = 12;
+
+    private static int FAVORIS_ITEM = 1;
 
     private ListNeighbourActivity mActivity;
 
@@ -69,6 +73,35 @@ public class NeighboursListTest {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
+    }
+
+    /**@Test
+    public void myFavoriteListShouldBeEmpty(){
+        onView(withContentDescription("Favorites")).perform(click());
+
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(0));
+    }
+    /**
+     * This test will check if our new features work properly
+     */
+    @Test
+    public void myNeighboursList_clickOnFavButton_shouldAddNeighbourToFavList(){
+
+        //click on the first item
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        //check if neighbour detail is displayed
+        onView(allOf(withId(R.id.profilpage))).check(matches(isDisplayed()));
+        // click on fav button to add the neighbour at position 0 to our favorite list
+        onView(withId(R.id.AddToFavorit)).perform(click());
+        // click on backMainActivityButton should close profil page activity and should resumed list neighbour activity
+        onView(withId(R.id.BackMainActivityButton)).perform(click());
+        //check if list neighbours activity has resumed
+        //onView(allOf(withId(R.id.list_neighbours))).check(matches(isDisplayed()));
+        //now we gonna check if our favorite list has been updated
+        onView(withContentDescription("Favorites")).perform(click());
+        //onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(FAVORIS_ITEM));
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(FAVORIS_ITEM));
+
     }
 
 }

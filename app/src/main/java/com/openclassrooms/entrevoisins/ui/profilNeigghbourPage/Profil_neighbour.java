@@ -26,6 +26,8 @@ public class Profil_neighbour extends AppCompatActivity {
     public TextView mProfilNeighbourName;
     @BindView(R.id.BackMainActivityButton)
     public ImageButton mBackToMainActivity;
+    @BindView(R.id.AboutMe)
+    public TextView mAboutMe;
     @BindView(R.id.Name2)
     public TextView mNeighbourName2;
     @BindView(R.id.AddToFavorit)
@@ -93,6 +95,7 @@ public class Profil_neighbour extends AppCompatActivity {
         mLocationIcon.setImageResource(R.drawable.ic_room_24px);
         mPhoneIcon.setImageResource(R.drawable.ic_call_24px);
         mSocialIcon.setImageResource(R.drawable.ic_public_24px);
+        mAboutMe.setText(R.string.title_about_me);
 
     }
     public void setFavStatus() {
