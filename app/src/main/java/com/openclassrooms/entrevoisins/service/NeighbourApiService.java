@@ -22,7 +22,15 @@ public interface NeighbourApiService {
      */
     void deleteNeighbour(Neighbour neighbour);
 
+    /**
+     * change the favorite state
+     * @param neighbour
+     */
     void addFavoritesOrRemove(Neighbour neighbour);
 
+    /**
+     * Get all neighbours who's have favorites state = true
+     * @return
+     */
     List<Neighbour> getFavoriteNeighbours();
 }

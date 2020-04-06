@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.ui.profilNeigghbourPage.Profil_neighbour;
+import com.openclassrooms.entrevoisins.ui.Profile_Activity.ProfileNeighbour;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,7 +56,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Profil_neighbour.class);
+                Intent intent = new Intent(v.getContext(), ProfileNeighbour.class);
                 intent.putExtra("Neighbour", neighbour);
                 v.getContext().startActivity(intent);
             }

@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:theme="@style/AppTheme.NoActionBar"
     android:weightSum="3"
-    tools:context=".ui.profilNeigghbourPage.Profil_neighbour">
+    tools:context=".ui.Profile_Activity.ProfileNeighbour">
 
 
 
@@ -181,6 +181,7 @@
     android:layout_marginTop="40dp"
     android:background="@android:color/white">
     <TextView
+        android:id="@+id/AboutMeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

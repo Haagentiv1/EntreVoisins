@@ -1,4 +1,4 @@
-package com.openclassrooms.entrevoisins.ui.profilNeigghbourPage;
+package com.openclassrooms.entrevoisins.ui.Profile_Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +18,12 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Profil_neighbour extends AppCompatActivity {
+public class ProfileNeighbour extends AppCompatActivity {
 
     @BindView(R.id.Avatar)
-    public ImageView mProfilNeighbourAvatar;
+    public ImageView mProfileNeighbourAvatar;
     @BindView(R.id.Name)
-    public TextView mProfilNeighbourName;
+    public TextView mProfileNeighbourName;
     @BindView(R.id.BackMainActivityButton)
     public ImageButton mBackToMainActivity;
     @BindView(R.id.AboutMe)
@@ -44,6 +44,8 @@ public class Profil_neighbour extends AppCompatActivity {
     public TextView mPhoneNumber;
     @BindView(R.id.SocialMail)
     public TextView mFacebook;
+    @BindView(R.id.AboutMeText)
+    public TextView mAboutMeText;
 
     private NeighbourApiService mApiService;
     private Neighbour mNeighbour;
@@ -55,7 +57,7 @@ public class Profil_neighbour extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testprofilepage);
+        setContentView(R.layout.activity_neighbour_details);
         mApiService = DI.getNeighbourApiService();
         ButterKnife.bind(this);
         getNeighbour();
@@ -64,10 +66,10 @@ public class Profil_neighbour extends AppCompatActivity {
         mFavStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mNeighbour.isFavorites()== false) {
+                if (!mNeighbour.isFavorites()) {
                     mApiService.addFavoritesOrRemove(mNeighbour);
                     mFavStar.setImageResource(R.drawable.ic_star_white_24dp);
-                }else if (mNeighbour.isFavorites()== true){
+                }else {
                     mApiService.addFavoritesOrRemove(mNeighbour);
                     mFavStar.setImageResource(R.drawable.ic_star_border_white_24dp);
                 }
@@ -77,16 +79,14 @@ public class Profil_neighbour extends AppCompatActivity {
         mBackToMainActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Profil_neighbour.this.finish();
+                ProfileNeighbour.this.finish();
             }
         });
-
     }
 
-
     private void setLayoutDrawable(){
-        Glide.with(this).load(mNeighbour.getAvatarUrl()).into(mProfilNeighbourAvatar);
-        mProfilNeighbourName.setText(mNeighbour.getName());
+        Glide.with(this).load(mNeighbour.getAvatarUrl()).into(mProfileNeighbourAvatar);
+        mProfileNeighbourName.setText(mNeighbour.getName());
         mNeighbourName2.setText(mNeighbour.getName());
         mLocation.setText(mNeighbour.getUserLocation());
         mPhoneNumber.setText(mNeighbour.getPhoneNumber());
@@ -96,18 +96,16 @@ public class Profil_neighbour extends AppCompatActivity {
         mPhoneIcon.setImageResource(R.drawable.ic_call_24px);
         mSocialIcon.setImageResource(R.drawable.ic_public_24px);
         mAboutMe.setText(R.string.title_about_me);
+        mAboutMeText.setText(mNeighbour.getAboutMe());
 
     }
     public void setFavStatus() {
-        if (mNeighbour.isFavorites() == false) {
+        if (!mNeighbour.isFavorites()) {
             mFavStar.setImageResource(R.drawable.ic_star_border_white_24dp);
         }else{
             mFavStar.setImageResource(R.drawable.ic_star_white_24dp);
         }
-
     }
-
-
 }
 
 

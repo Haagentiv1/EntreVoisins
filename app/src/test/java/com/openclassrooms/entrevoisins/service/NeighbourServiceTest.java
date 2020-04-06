@@ -4,6 +4,7 @@ import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test on Neighbour service
@@ -25,6 +27,11 @@ public class NeighbourServiceTest {
 
     @Before
     public void setup() {
+        service = DI.getNewInstanceApiService();
+    }
+
+    @After
+    public void backup(){
         service = DI.getNewInstanceApiService();
     }
 
@@ -44,19 +51,21 @@ public class NeighbourServiceTest {
 
     @Test
     public void getFavoriteNeighboursWithSuccess(){
+        Neighbour neighbour = service.getNeighbours().get(0);
+        service.addFavoritesOrRemove(neighbour);
         List<Neighbour> favoritesNeighbours = service.getFavoriteNeighbours();
-        assertEquals(true,favoritesNeighbours.get(0).isFavorites());
+        assertTrue(favoritesNeighbours.get(0).isFavorites());
 
     }
 
     @Test
     public void addFavoriteOrRemoveWithSuccess(){
-        Neighbour neighbour = service.getNeighbours().get(0);
-        assertEquals(false,neighbour.isFavorites());
+        Neighbour neighbour = service.getNeighbours().get(1);
+        assertFalse(neighbour.isFavorites());
         service.addFavoritesOrRemove(neighbour);
-        assertEquals(true,neighbour.isFavorites());
+        assertTrue(neighbour.isFavorites());
         service.addFavoritesOrRemove(neighbour);
-        assertEquals(false,neighbour.isFavorites());
+        assertFalse(neighbour.isFavorites());
 
     }
 }

@@ -13,10 +13,8 @@ public class Neighbour implements Parcelable {
 
     /** Identifier */
     private Integer id;
-
     /** Full name */
     private String name;
-
     /** Avatar */
     private String avatarUrl;
     /** Favorites status */
@@ -27,15 +25,21 @@ public class Neighbour implements Parcelable {
     private String phoneNumber;
     /** Facebook Link*/
     private String facebookLink;
+    /** About User*/
+    private String aboutMe;
 
     /**
      * Constructor
      * @param id
      * @param name
      * @param avatarUrl
+     * @param favorites
      * @param userLocation
+     * @param phoneNumber
+     * @param facebookLink
+     * @param aboutMe
      */
-    public Neighbour(Integer id, String name, String avatarUrl, Boolean favorites, String userLocation,String phoneNumber, String facebookLink) {
+    public Neighbour(Integer id, String name, String avatarUrl, Boolean favorites, String userLocation,String phoneNumber, String facebookLink, String aboutMe) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
@@ -43,6 +47,7 @@ public class Neighbour implements Parcelable {
         this.userLocation = userLocation;
         this.phoneNumber = phoneNumber;
         this.facebookLink = facebookLink;
+        this.aboutMe = aboutMe;
     }
 
     protected Neighbour(Parcel in) {
@@ -53,6 +58,7 @@ public class Neighbour implements Parcelable {
         userLocation = in.readString();
         phoneNumber = in.readString();
         facebookLink = in.readString();
+        aboutMe = in.readString();
     }
 
     public static final Creator<Neighbour> CREATOR = new Creator<Neighbour>() {
@@ -124,6 +130,10 @@ public class Neighbour implements Parcelable {
         this.facebookLink = facebookLink;
     }
 
+    public String getAboutMe(){return aboutMe;}
+
+    public void setAboutMe(String aboutMe){this.aboutMe = aboutMe;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,6 +161,7 @@ public class Neighbour implements Parcelable {
         dest.writeString(userLocation);
         dest.writeString(phoneNumber);
         dest.writeString(facebookLink);
+        dest.writeString(aboutMe);
     }
 
 
