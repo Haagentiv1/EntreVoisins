@@ -89,6 +89,7 @@ public class NeighbourFragment extends Fragment {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+
     }
 
     /**
@@ -100,4 +101,5 @@ public class NeighbourFragment extends Fragment {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
     }
+
 }

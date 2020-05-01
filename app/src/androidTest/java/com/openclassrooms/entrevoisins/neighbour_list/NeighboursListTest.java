@@ -79,14 +79,7 @@ public class NeighboursListTest {
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
     }
 
-    @Test
-    public void myFavoriteList_shouldBeEmpty(){
-        // click on favorites TabItem to display our favorite list
-        onView(withContentDescription("Favorites")).perform(click());
-        //check if our favorite list is empty
-        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(0));
 
-    }
 
     @Test
     public void MyNeighboursList_ClickOnANeighbour_ShouldDisplayNeighbourProfile(){
@@ -106,6 +99,12 @@ public class NeighboursListTest {
 
     @Test
     public void myNeighboursList_clickOnFavButton_shouldAddNeighbourToFavList(){
+        // click on favorites TabItem to display our favorite list
+        onView(withContentDescription("Favorites")).perform(click());
+        //check if our favorite list is empty
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(0));
+
+        onView(withContentDescription("My neighbours")).perform(click());
         // click on the first item and check is name.
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         // Add the neighbour in the favorite list
