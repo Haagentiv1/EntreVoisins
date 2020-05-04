@@ -120,8 +120,10 @@ public class NeighboursListTest {
         onView(withId(R.id.BackMainActivityButton)).perform(click());
         onView(withContentDescription("Favorites")).perform(click());
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0,new DeleteViewAction()));
+        // check if the neighbour in the Favorite list has been correctly delete.
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(0));
         onView(withContentDescription("My neighbours")).perform(click());
+        // check if the neighbour is still in the neighbour list.
         onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(ITEMS_COUNT));
     }
 
