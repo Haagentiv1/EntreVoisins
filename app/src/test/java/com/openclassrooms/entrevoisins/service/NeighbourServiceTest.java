@@ -42,13 +42,22 @@ public class NeighbourServiceTest {
         assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
     }
 
-    /**@Test
+    @Test
     public void deleteNeighbourWithSuccess() {
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }
-     **/
+    @Test
+    public void deleteFavNeighboursWithSuccess(){
+        Neighbour neighbourToDelete = service.getNeighbours().get(0);
+        neighbourToDelete.setFavorites(true);
+        assertTrue(service.getFavoriteNeighbours().contains(neighbourToDelete));
+        service.deleteFavNeighbour(neighbourToDelete);
+        assertFalse(service.getFavoriteNeighbours().contains(neighbourToDelete));
+        assertTrue(service.getNeighbours().contains(neighbourToDelete));
+    }
+
 
     @Test
     public void getFavoriteNeighboursWithSuccess(){
