@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.events.DeleteFavNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.ui.Profile_Activity.ProfileNeighbour;
@@ -27,15 +29,17 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
+    private OnItemClickListener listener;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items,OnItemClickListener onItemClickListener) {
         mNeighbours = items;
+        this.listener = onItemClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_neighbour, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,listener);
     }
 
     @Override
@@ -46,13 +50,22 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .load(neighbour.getAvatarUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
+        if(listener instanceof NeighbourFragment) {
+            holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
+                }
+            });
+        }else{
+            holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new DeleteFavNeighbourEvent(neighbour));
+                }
+            });
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
-            }
-        });
+        }
         holder.mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +81,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         return mNeighbours.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.item_list_avatar)
         public ImageView mNeighbourAvatar;
         @BindView(R.id.item_list_name)
@@ -78,9 +91,21 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         @BindView(R.id.ItemLayout)
         public ConstraintLayout mStartButton;
 
-        public ViewHolder(View view) {
+        OnItemClickListener onItemClickListener;
+
+        public ViewHolder(View view,OnItemClickListener onItemClickListener) {
             super(view);
             ButterKnife.bind(this, view);
+            this.onItemClickListener = onItemClickListener;
+            view.setOnClickListener((View.OnClickListener)this);
         }
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

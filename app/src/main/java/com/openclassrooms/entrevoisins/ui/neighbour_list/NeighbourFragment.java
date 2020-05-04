@@ -22,24 +22,19 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
-public class NeighbourFragment extends Fragment {
+public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.OnItemClickListener {
 
     private NeighbourApiService mApiService = DI.getNeighbourApiService();
     private List<Neighbour> mNeighbours;
-    private List<Neighbour> mFavorites;
     private RecyclerView mRecyclerView;
-    private int position;
 
 
     /**
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance(int position) {
+    public static NeighbourFragment newInstance() {
         NeighbourFragment fragment = new NeighbourFragment();
-        Bundle args = new Bundle();
-        args.putInt("tab",position);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -48,7 +43,6 @@ public class NeighbourFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position = getArguments().getInt("tab");
         mApiService = DI.getNeighbourApiService();
     }
 
@@ -70,12 +64,7 @@ public class NeighbourFragment extends Fragment {
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mFavorites = mApiService.getFavoriteNeighbours();
-
-        if (position == 1){
-            mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites));
-        }else
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(this.mNeighbours,this));
     }
 
     @Override
@@ -102,4 +91,8 @@ public class NeighbourFragment extends Fragment {
             initList();
     }
 
+    @Override
+    public void onItemClick(int position) {
+
+    }
 }
