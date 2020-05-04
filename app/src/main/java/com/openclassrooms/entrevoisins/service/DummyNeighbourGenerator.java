@@ -1,5 +1,7 @@
 package com.openclassrooms.entrevoisins.service;
 
+import android.os.Bundle;
+
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import java.util.ArrayList;
@@ -7,12 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class DummyNeighbourGenerator {
+    public static List<Neighbour> DUMMY_FAV_NEIGHBOURS = Arrays.asList();
 
 
     public static List<Neighbour> DUMMY_NEIGHBOURS = Arrays.asList(
             new Neighbour(1, "Caroline", "http://i.pravatar.cc/150?u=a042581f4e29026704d",false, "Paris","0152334421","www.facebook.fr/Caroline",
                     "Bonjour !Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !J'aime les jeux de cartes tels la belote et le tarot.."),
-            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e",false, "Paris","0185653252","www.facebook.fr/Jack"
+            new Neighbour(2, "Jack", "http://i.pravatar.cc/150?u=a042581f4e29026704e",true, "Paris","0185653252","www.facebook.fr/Jack"
                     ,"Bonjour !Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !J'aime les jeux de cartes tels la belote et le tarot.."),
             new Neighbour(3, "Chloé", "http://i.pravatar.cc/150?u=a042581f4e29026704f",false, "Paris","0139654721","www.facebook.fr/Chloé"
                     ,"Bonjour !Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !J'aime les jeux de cartes tels la belote et le tarot.."),
@@ -39,4 +42,7 @@ public abstract class DummyNeighbourGenerator {
     static List<Neighbour> generateNeighbours() {
         return new ArrayList<>(DUMMY_NEIGHBOURS);
     }
+
+    static List<Neighbour> generateFavNeighbours(){return new ArrayList<>(DUMMY_FAV_NEIGHBOURS);}
+
 }

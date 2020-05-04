@@ -24,7 +24,7 @@ import java.util.List;
 
 public class NeighbourFragment extends Fragment {
 
-    private NeighbourApiService mApiService;
+    private NeighbourApiService mApiService = DI.getNeighbourApiService();
     private List<Neighbour> mNeighbours;
     private List<Neighbour> mFavorites;
     private RecyclerView mRecyclerView;
@@ -98,8 +98,8 @@ public class NeighbourFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
-        initList();
+            mApiService.deleteNeighbour(event.neighbour);
+            initList();
     }
 
 }

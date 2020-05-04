@@ -103,7 +103,6 @@ public class NeighboursListTest {
         onView(withContentDescription("Favorites")).perform(click());
         //check if our favorite list is empty
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(0));
-
         onView(withContentDescription("My neighbours")).perform(click());
         // click on the first item and check is name.
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
@@ -114,4 +113,12 @@ public class NeighboursListTest {
         onView(withContentDescription("Favorites")).perform(click());
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).check(withItemCount(1));
     }
+    @Test
+    public void MyFavList_deleteAction_ShouldDeleteInFavListButNotInNeighbourList(){
+        onView(withContentDescription("Favorites")).perform(click());
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0,new DeleteViewAction()));
+        onView(withContentDescription("My neighbours")).perform(click());
+        onView(allOf(withId(R.id.list_neighbours), isDisplayed())).check(withItemCount(ITEMS_COUNT));
+    }
+
 }
