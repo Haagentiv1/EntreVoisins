@@ -115,6 +115,9 @@ public class NeighboursListTest {
     }
     @Test
     public void MyFavList_deleteAction_ShouldDeleteInFavListButNotInNeighbourList(){
+        onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.AddToFavorit)).perform(click());
+        onView(withId(R.id.BackMainActivityButton)).perform(click());
         onView(withContentDescription("Favorites")).perform(click());
         onView(allOf(withId(R.id.list_neighbours),isDisplayed())).perform(RecyclerViewActions.actionOnItemAtPosition(0,new DeleteViewAction()));
         onView(withContentDescription("My neighbours")).perform(click());
